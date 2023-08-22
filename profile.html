@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.css">
+    <script src="bootstrap/js/bootstrap.js"></script>
+    <title>Profile Page</title>
+    <link rel="stylesheet" href="fontawesome/css/all.css">
+    <script src="fontawesome/js/all.js"></script>
+    <style>
+        header{
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgb(141, 141, 141);
+            margin-bottom: 30px;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+</head>
+<body>
+
+<div id="add"><a href="#" class="btn" data-bs-toggle="modal" data-bs-target="#addpost"></a></div>
+<!--signuo======================================================================-->   
+<div class="modal fade" id="signup" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Login</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="mb-3">
+              <label for="recipient-name" class="col-form-label">Full Name:</label>
+              <input type="text" class="form-control" id="signup-fullname">
+            </div>
+            <div class="mb-3">
+              <label for="recipient-name" class="col-form-label">Username:</label>
+              <input type="text" class="form-control" id="signup-username">
+            </div>
+            <div class="mb-3">
+              <label for="recipient-name" class="col-form-label">Email:</label>
+              <input type="text" class="form-control" id="signup-email">
+            </div>
+            <div class="mb-3">
+              <label for="message-text" class="col-form-label">Password:</label>
+              <input type="password" class="form-control" id="signup-password">
+            </div>
+            <div class="mb-3">
+              <label for="message-text" class="col-form-label">Upload Avatar:</label>
+              <input type="file" class="form-control" id="signup-img">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" id="signup-btn" onclick="opop()">Sign Up</button>
+          <button id="loadingbtn-reg" style="display: none;" class="btn btn-primary" type="button" disabled>
+            <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+            <span role="status">Loading...</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+<!--signuo======================================================================--> 
+
+
+
+<!--///////////////////////////////////////////////////////////////////////////-->
+
+
+<div id="liveAlertPlaceholder"></div>
+
+
+
+<!--///////////////////////////////////////////////////////////////////////////-->
+
+
+<!--login======================================================================-->
+    <div class="modal fade" id="login-model" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">Login</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form>
+                <div class="mb-3">
+                  <label for="recipient-name" class="col-form-label">Username:</label>
+                  <input type="text" class="form-control" id="login-username" value="">
+                </div>
+                <div class="mb-3">
+                  <label for="message-text" class="col-form-label">Password:</label>
+                  <input type="password" class="form-control" id="login-password" value="">
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary" id="login" onclick="loginn()">Login</button>
+              <button id="loadingbtn-login" style="display: none;" class="btn btn-primary" type="button" disabled>
+                <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+                <span role="status">Loading...</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+<!--login======================================================================-->
+
+
+<!--/*****************************/////////////////////***************///////////-->
+
+
+
+<!--deletepost======================================================================-->
+<div class="modal fade" id="delpost-model" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Delete Post</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <h1>Are Sure You Want To Delete The Post</h1>
+              </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" onclick="delpostbtn()" id="delbtn">Delete</button>
+          <button id="delbtn-loading" style="display: none;" class="btn btn-primary" type="button" disabled>
+            <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+            <span role="status">Loading...</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--deletepost======================================================================-->
+
+
+
+<!--/*****************************/////////////////////***************///////////-->
+
+
+
+<!--editpost======================================================================-->
+<div class="modal fade" id="editpost-model" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Edit Post</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form>
+                <div class="mb-3">
+                  <label for="recipient-name" class="col-form-label">Title:</label>
+                  <input type="text" class="form-control" id="editpost-title" >
+                </div>
+                <div class="mb-3">
+                  <label for="message-text" class="col-form-label">Description:</label>
+                  <input type="text" class="form-control" id="editpost-body" >
+                </div>
+                <div class="mb-3">
+                  <label for="message-text" class="col-form-label">Upload Thumbnail:</label>
+                  <input type="file" class="form-control" id="editpost-photo">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" onclick="update()" id="editbtn">Update</button>
+        <button id="editbtn-loading" style="display: none;" class="btn btn-primary" type="button" disabled>
+          <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+          <span role="status">Loading...</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--editpost======================================================================-->
+
+
+
+<!--post======================================================================-->
+    <div class="modal fade" id="addpost" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">Create Post</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form>
+                <div class="mb-3">
+                  <label for="recipient-name" class="col-form-label">Title:</label>
+                  <input type="text" class="form-control" id="add-title" >
+                </div>
+                <div class="mb-3">
+                  <label for="message-text" class="col-form-label">Description:</label>
+                  <input type="text" class="form-control" id="add-body" >
+                </div>
+                <div class="mb-3">
+                  <label for="message-text" class="col-form-label">Upload Thumbnail:</label>
+                  <input type="file" class="form-control" id="add-photo">
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary" id="addpost-btn">Create Post</button>
+              <button id="loadingbtn-add" style="display: none;" class="btn btn-primary" type="button" disabled>
+                <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+                <span role="status">Loading...</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+<!--post======================================================================-->
+
+
+
+        <div class="container">
+            <div class="d-flex justify-content-center">
+        <header class="bg-light row justify-content-between align-items-center py-1 col-9  bg-light">
+                        <nav class="navbar navbar-expand-md bg-body-tertiary ">
+                            <a class="navbar-brand" href="index.html">Social Media</a>
+                            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+                            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                                <li class="nav-item">
+                                    <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="profile.html">Profile</a>
+                                </li>
+                                </ul>
+                                <div>
+                                </div>
+                                <div class="d-flex justify-content-end w-100 ">
+                                    <div id="profile-logo" class="col-7 text-align-right d-flex justify-content-end align-items-center">
+                                      <div style="width: 40px; height: 40px; border-radius: 50%; overflow: hidden; margin-right: 10px;">
+                                          <a href="#" ><img id="img-profile" style="width: 100%; height: 100%;" src="gold.png" alt=""></a>
+                                      </div>
+                                      <div style="margin-right: 10px;">
+                                          <strong id="username-logo">marlo123</strong>
+                                      </div>
+                                    </div>
+                                    <a id="login-ui" href="#" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#login-model">Login</a>
+                                    <a id="signupui" style="margin-left: 10px;" href="#" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#signup">Sign Up</a>
+                                    <a id="logout" style="display: none;" href="#" class="btn btn-outline-danger">Logout</a>
+                                </div> 
+                            </div>
+                        
+                        </nav>
+                        
+        </header>
+            </div>
+        </div>
+        
+
+        <div class="container" style="display:  flex; justify-content: center; align-items: center;">
+            <div class="col-9">
+                <div id="userprofile" style="width: 100%;">
+                    <div class="text-center" id="loader" style="margin-top: 50px;">
+                        <div class="spinner-border" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+            </div>
+        </div>
+        
+
+        <div class="container d-flex justify-content-center">
+            <div class="col-9 ">
+                <div  id="posts" style="margin-top: 50px; width: 100%;">
+                    <div class="text-center" id="loader" style="margin-top: 50px;">
+                        <div class="spinner-border" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+                    
+
+        
+        
+
+    <script src="main.js"></script>
+    <script src="profile.js"></script>
+</body>
+</html>

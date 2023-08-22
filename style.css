@@ -1,0 +1,44 @@
+body {
+    position: relative;
+    min-height: 100vh;
+    background-color: hotpink;
+}
+
+#add a {
+    width: 60px;
+    height: 60px;
+    background-color: rgb(54, 134, 255);
+    border-radius: 50%;
+    position: fixed;
+    right: 10%;
+    bottom: 15%;
+    z-index: 1;
+}
+#add a::before {
+    content: "";
+    position: absolute;
+    height: 80%;
+    width: 10px;
+    top: 10%;
+    left: 40%;
+    transform: rotate(90deg);
+    color: rgb(72, 72, 255);
+    background-color: white;
+}
+#add a::after {
+    content: "";
+    position: absolute;
+    height: 80%;
+    width: 10px;
+    top: 10%;
+    left: 42%;
+    transform: rotate(0deg);
+    background-color: white;
+}
+#showments{
+    background-color: rgb(218, 237, 255);
+}
+#comment-show {
+    margin-bottom: 10px; 
+    margin-top: 20px;
+}
